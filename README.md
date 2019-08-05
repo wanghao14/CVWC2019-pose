@@ -92,6 +92,7 @@ ${POSE_ROOT}
 You can directly download the json files from dir 'data/atrw/pose/annotations'.
 
 ## Training and Testing
+Please pay attention to modify the parameter of DATASET in cfg file for training or testing.
 #### Train on tiger dataset using pretrained model:
 
 ```
