@@ -13,7 +13,7 @@ for res in ori_res:
     image_id = res['image_id']
     score = res['score']
     for i in range(15):
-        if res['keypoints'][i * 3 + 2] > 0.30:
+        if res['keypoints'][i * 3 + 2] > 0.20:
             if i != 14:
                 keypoints.append(int('%d' % res['keypoints'][i * 3]))
                 keypoints.append(int('%d' % res['keypoints'][i * 3 + 1]))
