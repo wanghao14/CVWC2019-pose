@@ -1,0 +1,2993 @@
+nohup: ignoring input
+Namespace(cfg='experiments/atrw/w48_384x288_0717NANW.yaml', dataDir='', logDir='', modelDir='', opts=[], prevModelDir='')
+AUTO_RESUME: True
+CUDNN:
+  BENCHMARK: True
+  DETERMINISTIC: False
+  ENABLED: True
+DATASET:
+  COLOR_RGB: True
+  DATASET: atrw
+  DATA_FORMAT: jpg
+  FLIP: True
+  HYBRID_JOINTS_TYPE: 
+  NUM_JOINTS_HALF_BODY: 7
+  PROB_HALF_BODY: 0.4
+  ROOT: data/atrw/pose
+  ROT_FACTOR: 45
+  SCALE_FACTOR: 0.35
+  SELECT_DATA: False
+  TEST_SET: val
+  TRAIN_SET: train
+DATA_DIR: 
+DEBUG:
+  DEBUG: True
+  SAVE_BATCH_IMAGES_GT: True
+  SAVE_BATCH_IMAGES_PRED: True
+  SAVE_HEATMAPS_GT: True
+  SAVE_HEATMAPS_PRED: True
+GPUS: (0,)
+LOG_DIR: log
+LOSS:
+  TOPK: 8
+  USE_DIFFERENT_JOINTS_WEIGHT: False
+  USE_OHKM: False
+  USE_TARGET_WEIGHT: True
+MODEL:
+  EXTRA:
+    FINAL_CONV_KERNEL: 1
+    PRETRAINED_LAYERS: ['conv1', 'bn1', 'conv2', 'bn2', 'layer1', 'transition1', 'stage2', 'transition2', 'stage3', 'transition3', 'stage4']
+    STAGE2:
+      BLOCK: BASIC
+      FUSE_METHOD: SUM
+      NUM_BLOCKS: [4, 4]
+      NUM_BRANCHES: 2
+      NUM_CHANNELS: [48, 96]
+      NUM_MODULES: 1
+    STAGE3:
+      BLOCK: BASIC
+      FUSE_METHOD: SUM
+      NUM_BLOCKS: [4, 4, 4]
+      NUM_BRANCHES: 3
+      NUM_CHANNELS: [48, 96, 192]
+      NUM_MODULES: 4
+    STAGE4:
+      BLOCK: BASIC
+      FUSE_METHOD: SUM
+      NUM_BLOCKS: [4, 4, 4, 4]
+      NUM_BRANCHES: 4
+      NUM_CHANNELS: [48, 96, 192, 384]
+      NUM_MODULES: 3
+  HEATMAP_SIZE: [96, 72]
+  IMAGE_SIZE: [384, 288]
+  INIT_WEIGHTS: True
+  NAME: pose_hrnet
+  NUM_JOINTS: 15
+  PRETRAINED: models/pytorch/imagenet/hrnet_w48.pth
+  SIGMA: 3
+  TAG_PER_JOINT: True
+  TARGET_TYPE: gaussian
+OUTPUT_DIR: output
+PIN_MEMORY: True
+PRINT_FREQ: 100
+RANK: 0
+TEST:
+  BATCH_SIZE_PER_GPU: 64
+  BBOX_THRE: 1.0
+  COCO_BBOX_FILE: 
+  FLIP_TEST: True
+  IMAGE_THRE: 0.0
+  IN_VIS_THRE: 0.3
+  MODEL_FILE: 
+  NMS_THRE: 1.0
+  OKS_THRE: 0.9
+  POST_PROCESS: True
+  SHIFT_HEATMAP: True
+  SOFT_NMS: False
+  USE_GT_BBOX: True
+TRAIN:
+  BATCH_SIZE_PER_GPU: 64
+  BEGIN_EPOCH: 0
+  CHECKPOINT: 
+  END_EPOCH: 110
+  GAMMA1: 0.99
+  GAMMA2: 0.0
+  LR: 0.0005
+  LR_FACTOR: 0.1
+  LR_STEP: [90, 105]
+  MOMENTUM: 0.9
+  NESTEROV: False
+  OPTIMIZER: adam
+  RESUME: False
+  SHUFFLE: True
+  WD: 0.0001
+WORKERS: 48
+=> init weights from normal distribution
+=> loading pretrained model models/pytorch/imagenet/hrnet_w48.pth
+Failed to export an ONNX attribute, since it's not constant, please try to make things (e.g., kernel size) static if possible
+
+Total Parameters: 63,595,647
+----------------------------------------------------------------------------------------------------------------------------------
+Total Multiply Adds (For Convolution and Linear Layers only): 32.881221771240234 GFLOPs
+----------------------------------------------------------------------------------------------------------------------------------
+Number of Layers
+Conv2d : 293 layers   BatchNorm2d : 292 layers   ReLU : 261 layers   Bottleneck : 4 layers   BasicBlock : 104 layers   Upsample : 28 layers   HighResolutionModule : 8 layers   
+=> annotation_path:data/atrw/pose/annotations_new/keypoints_train.json
+=> classes: ['__background__', 'tiger']
+=> num_images: 3609
+=> load 2193 samples
+=> annotation_path:data/atrw/pose/annotations_new/keypoints_val.json
+=> classes: ['__background__', 'tiger']
+=> num_images: 515
+=> load 343 samples
+=> creating output/atrw/pose_hrnet/w48_384x288_0717NANW
+=> creating log/atrw/pose_hrnet/w48_384x288_0717NANW_2019-07-19-20-57
+loading annotations into memory...
+Done (t=0.04s)
+creating index...
+index created!
+loading annotations into memory...
+Done (t=0.01s)
+creating index...
+index created!
+Epoch: [0][0/35]	Time 15.335s (15.335s)	Speed 4.2 samples/s	Data 9.869s (9.869s)	Loss 0.00130 (0.00130)	Accuracy 0.013 (0.013)
+Test: [0/6]	Time 5.308 (5.308)	Loss 0.0010 (0.0010)	Accuracy 0.601 (0.601)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.337 | 0.911 | 0.068 | -1.000 | 0.337 | 0.425 | 0.939 | 0.242 | -1.000 | 0.425 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.02s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.337
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.911
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.068
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.337
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.425
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.939
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.242
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.425
+Epoch: [1][0/35]	Time 9.376s (9.376s)	Speed 6.8 samples/s	Data 7.065s (7.065s)	Loss 0.00089 (0.00089)	Accuracy 0.555 (0.555)
+Test: [0/6]	Time 5.368 (5.368)	Loss 0.0009 (0.0009)	Accuracy 0.616 (0.616)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.419 | 0.961 | 0.181 | -1.000 | 0.419 | 0.483 | 0.974 | 0.338 | -1.000 | 0.483 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.02s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.419
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.961
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.181
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.419
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.483
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.338
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.483
+Epoch: [2][0/35]	Time 11.460s (11.460s)	Speed 5.6 samples/s	Data 9.703s (9.703s)	Loss 0.00069 (0.00069)	Accuracy 0.586 (0.586)
+Test: [0/6]	Time 5.379 (5.379)	Loss 0.0008 (0.0008)	Accuracy 0.659 (0.659)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.449 | 0.956 | 0.251 | -1.000 | 0.454 | 0.517 | 0.974 | 0.414 | -1.000 | 0.517 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.02s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.18s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.449
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.956
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.251
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.454
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.517
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.414
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.517
+Epoch: [3][0/35]	Time 10.670s (10.670s)	Speed 6.0 samples/s	Data 8.913s (8.913s)	Loss 0.00072 (0.00072)	Accuracy 0.623 (0.623)
+Test: [0/6]	Time 4.835 (4.835)	Loss 0.0007 (0.0007)	Accuracy 0.712 (0.712)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.530 | 0.955 | 0.498 | -1.000 | 0.530 | 0.597 | 0.971 | 0.641 | -1.000 | 0.597 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.02s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.530
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.955
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.498
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.530
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.597
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.971
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.641
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.597
+Epoch: [4][0/35]	Time 11.059s (11.059s)	Speed 5.8 samples/s	Data 9.406s (9.406s)	Loss 0.00067 (0.00067)	Accuracy 0.660 (0.660)
+Test: [0/6]	Time 4.727 (4.727)	Loss 0.0006 (0.0006)	Accuracy 0.804 (0.804)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.671 | 0.963 | 0.874 | -1.000 | 0.671 | 0.719 | 0.974 | 0.910 | -1.000 | 0.719 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.671
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.963
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.874
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.671
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.719
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.910
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.719
+Epoch: [5][0/35]	Time 12.208s (12.208s)	Speed 5.2 samples/s	Data 10.652s (10.652s)	Loss 0.00051 (0.00051)	Accuracy 0.766 (0.766)
+Test: [0/6]	Time 4.762 (4.762)	Loss 0.0005 (0.0005)	Accuracy 0.852 (0.852)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.755 | 0.962 | 0.904 | -1.000 | 0.755 | 0.800 | 0.974 | 0.924 | -1.000 | 0.800 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.16s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.755
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.962
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.904
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.755
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.800
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.924
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.800
+Epoch: [6][0/35]	Time 11.214s (11.214s)	Speed 5.7 samples/s	Data 9.545s (9.545s)	Loss 0.00049 (0.00049)	Accuracy 0.795 (0.795)
+Test: [0/6]	Time 4.886 (4.886)	Loss 0.0004 (0.0004)	Accuracy 0.917 (0.917)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.849 | 0.960 | 0.925 | -1.000 | 0.849 | 0.880 | 0.974 | 0.942 | -1.000 | 0.880 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.849
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.960
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.925
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.849
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.880
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.942
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.880
+Epoch: [7][0/35]	Time 12.022s (12.022s)	Speed 5.3 samples/s	Data 10.411s (10.411s)	Loss 0.00044 (0.00044)	Accuracy 0.838 (0.838)
+Test: [0/6]	Time 4.639 (4.639)	Loss 0.0004 (0.0004)	Accuracy 0.926 (0.926)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.851 | 0.960 | 0.915 | -1.000 | 0.851 | 0.882 | 0.974 | 0.939 | -1.000 | 0.882 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.851
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.960
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.915
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.851
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.882
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.939
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.882
+Epoch: [8][0/35]	Time 9.778s (9.778s)	Speed 6.5 samples/s	Data 7.506s (7.506s)	Loss 0.00047 (0.00047)	Accuracy 0.829 (0.829)
+Test: [0/6]	Time 4.657 (4.657)	Loss 0.0004 (0.0004)	Accuracy 0.908 (0.908)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.860 | 0.961 | 0.926 | -1.000 | 0.860 | 0.890 | 0.974 | 0.942 | -1.000 | 0.890 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.860
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.961
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.926
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.860
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.890
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.942
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.890
+Epoch: [9][0/35]	Time 12.327s (12.327s)	Speed 5.2 samples/s	Data 10.772s (10.772s)	Loss 0.00041 (0.00041)	Accuracy 0.855 (0.855)
+Test: [0/6]	Time 5.914 (5.914)	Loss 0.0004 (0.0004)	Accuracy 0.920 (0.920)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.865 | 0.961 | 0.935 | -1.000 | 0.865 | 0.893 | 0.974 | 0.950 | -1.000 | 0.893 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.865
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.961
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.935
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.865
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.893
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.950
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.893
+Epoch: [10][0/35]	Time 11.533s (11.533s)	Speed 5.5 samples/s	Data 9.164s (9.164s)	Loss 0.00038 (0.00038)	Accuracy 0.875 (0.875)
+Test: [0/6]	Time 5.710 (5.710)	Loss 0.0003 (0.0003)	Accuracy 0.932 (0.932)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.870 | 0.962 | 0.927 | -1.000 | 0.870 | 0.895 | 0.974 | 0.942 | -1.000 | 0.895 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.870
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.962
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.927
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.870
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.895
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.942
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.895
+Epoch: [11][0/35]	Time 14.095s (14.095s)	Speed 4.5 samples/s	Data 12.537s (12.537s)	Loss 0.00036 (0.00036)	Accuracy 0.863 (0.863)
+Test: [0/6]	Time 5.656 (5.656)	Loss 0.0003 (0.0003)	Accuracy 0.942 (0.942)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.868 | 0.961 | 0.935 | -1.000 | 0.868 | 0.899 | 0.974 | 0.953 | -1.000 | 0.899 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.868
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.961
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.935
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.868
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.899
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.953
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.899
+Epoch: [12][0/35]	Time 9.045s (9.045s)	Speed 7.1 samples/s	Data 6.355s (6.355s)	Loss 0.00039 (0.00039)	Accuracy 0.872 (0.872)
+Test: [0/6]	Time 5.802 (5.802)	Loss 0.0003 (0.0003)	Accuracy 0.942 (0.942)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.861 | 0.960 | 0.921 | -1.000 | 0.861 | 0.894 | 0.974 | 0.942 | -1.000 | 0.894 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.861
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.960
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.921
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.861
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.894
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.942
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.894
+Epoch: [13][0/35]	Time 13.769s (13.769s)	Speed 4.6 samples/s	Data 12.205s (12.205s)	Loss 0.00035 (0.00035)	Accuracy 0.868 (0.868)
+Test: [0/6]	Time 5.902 (5.902)	Loss 0.0003 (0.0003)	Accuracy 0.932 (0.932)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.872 | 0.961 | 0.934 | -1.000 | 0.872 | 0.902 | 0.977 | 0.953 | -1.000 | 0.902 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.872
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.961
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.934
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.872
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.902
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.977
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.953
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.902
+Epoch: [14][0/35]	Time 13.204s (13.204s)	Speed 4.8 samples/s	Data 11.499s (11.499s)	Loss 0.00035 (0.00035)	Accuracy 0.860 (0.860)
+Test: [0/6]	Time 5.771 (5.771)	Loss 0.0003 (0.0003)	Accuracy 0.947 (0.947)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.870 | 0.962 | 0.928 | -1.000 | 0.870 | 0.899 | 0.974 | 0.945 | -1.000 | 0.899 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.16s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.870
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.962
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.928
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.870
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.899
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.945
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.899
+Epoch: [15][0/35]	Time 12.473s (12.473s)	Speed 5.1 samples/s	Data 9.447s (9.447s)	Loss 0.00040 (0.00040)	Accuracy 0.843 (0.843)
+Test: [0/6]	Time 5.696 (5.696)	Loss 0.0003 (0.0003)	Accuracy 0.943 (0.943)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.875 | 0.962 | 0.939 | -1.000 | 0.875 | 0.902 | 0.977 | 0.950 | -1.000 | 0.902 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.875
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.962
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.939
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.875
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.902
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.977
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.950
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.902
+Epoch: [16][0/35]	Time 13.896s (13.896s)	Speed 4.6 samples/s	Data 12.342s (12.342s)	Loss 0.00033 (0.00033)	Accuracy 0.872 (0.872)
+Test: [0/6]	Time 5.367 (5.367)	Loss 0.0003 (0.0003)	Accuracy 0.944 (0.944)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.874 | 0.960 | 0.937 | -1.000 | 0.874 | 0.903 | 0.974 | 0.953 | -1.000 | 0.903 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.874
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.960
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.937
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.874
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.903
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.953
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.903
+Epoch: [17][0/35]	Time 12.819s (12.819s)	Speed 5.0 samples/s	Data 11.078s (11.078s)	Loss 0.00034 (0.00034)	Accuracy 0.890 (0.890)
+Test: [0/6]	Time 5.704 (5.704)	Loss 0.0003 (0.0003)	Accuracy 0.941 (0.941)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.874 | 0.961 | 0.937 | -1.000 | 0.874 | 0.902 | 0.974 | 0.950 | -1.000 | 0.902 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.02s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.874
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.961
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.937
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.874
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.902
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.950
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.902
+Epoch: [18][0/35]	Time 11.835s (11.835s)	Speed 5.4 samples/s	Data 9.669s (9.669s)	Loss 0.00035 (0.00035)	Accuracy 0.859 (0.859)
+Test: [0/6]	Time 5.710 (5.710)	Loss 0.0003 (0.0003)	Accuracy 0.941 (0.941)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.881 | 0.960 | 0.937 | -1.000 | 0.881 | 0.908 | 0.974 | 0.950 | -1.000 | 0.908 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.881
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.960
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.937
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.881
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.908
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.950
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.908
+Epoch: [19][0/35]	Time 12.239s (12.239s)	Speed 5.2 samples/s	Data 10.526s (10.526s)	Loss 0.00032 (0.00032)	Accuracy 0.887 (0.887)
+Test: [0/6]	Time 5.639 (5.639)	Loss 0.0003 (0.0003)	Accuracy 0.940 (0.940)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.881 | 0.961 | 0.940 | -1.000 | 0.881 | 0.907 | 0.974 | 0.956 | -1.000 | 0.907 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.881
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.961
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.940
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.881
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.907
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.956
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.907
+Epoch: [20][0/35]	Time 12.889s (12.889s)	Speed 5.0 samples/s	Data 11.303s (11.303s)	Loss 0.00036 (0.00036)	Accuracy 0.873 (0.873)
+Test: [0/6]	Time 5.664 (5.664)	Loss 0.0003 (0.0003)	Accuracy 0.938 (0.938)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.882 | 0.961 | 0.940 | -1.000 | 0.882 | 0.910 | 0.977 | 0.959 | -1.000 | 0.910 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.882
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.961
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.940
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.882
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.910
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.977
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.959
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.910
+Epoch: [21][0/35]	Time 13.718s (13.718s)	Speed 4.7 samples/s	Data 12.167s (12.167s)	Loss 0.00031 (0.00031)	Accuracy 0.889 (0.889)
+Test: [0/6]	Time 5.730 (5.730)	Loss 0.0003 (0.0003)	Accuracy 0.938 (0.938)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.880 | 0.961 | 0.938 | -1.000 | 0.880 | 0.908 | 0.974 | 0.956 | -1.000 | 0.908 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.880
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.961
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.938
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.880
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.908
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.956
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.908
+Epoch: [22][0/35]	Time 12.710s (12.710s)	Speed 5.0 samples/s	Data 11.084s (11.084s)	Loss 0.00031 (0.00031)	Accuracy 0.882 (0.882)
+Test: [0/6]	Time 5.445 (5.445)	Loss 0.0003 (0.0003)	Accuracy 0.930 (0.930)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.880 | 0.963 | 0.940 | -1.000 | 0.880 | 0.906 | 0.974 | 0.950 | -1.000 | 0.906 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.880
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.963
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.940
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.880
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.906
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.950
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.906
+Epoch: [23][0/35]	Time 11.532s (11.532s)	Speed 5.5 samples/s	Data 9.344s (9.344s)	Loss 0.00035 (0.00035)	Accuracy 0.856 (0.856)
+Test: [0/6]	Time 5.582 (5.582)	Loss 0.0003 (0.0003)	Accuracy 0.947 (0.947)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.886 | 0.962 | 0.938 | -1.000 | 0.886 | 0.914 | 0.974 | 0.956 | -1.000 | 0.914 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.886
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.962
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.938
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.886
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.914
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.956
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.914
+Epoch: [24][0/35]	Time 8.981s (8.981s)	Speed 7.1 samples/s	Data 6.274s (6.274s)	Loss 0.00032 (0.00032)	Accuracy 0.889 (0.889)
+Test: [0/6]	Time 5.466 (5.466)	Loss 0.0003 (0.0003)	Accuracy 0.930 (0.930)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.888 | 0.963 | 0.940 | -1.000 | 0.888 | 0.913 | 0.974 | 0.956 | -1.000 | 0.913 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.888
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.963
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.940
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.888
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.913
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.956
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.913
+Epoch: [25][0/35]	Time 13.266s (13.266s)	Speed 4.8 samples/s	Data 11.713s (11.713s)	Loss 0.00032 (0.00032)	Accuracy 0.880 (0.880)
+Test: [0/6]	Time 5.282 (5.282)	Loss 0.0003 (0.0003)	Accuracy 0.935 (0.935)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.880 | 0.962 | 0.940 | -1.000 | 0.880 | 0.906 | 0.977 | 0.950 | -1.000 | 0.906 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.880
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.962
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.940
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.880
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.906
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.977
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.950
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.906
+Epoch: [26][0/35]	Time 10.407s (10.407s)	Speed 6.1 samples/s	Data 7.335s (7.335s)	Loss 0.00034 (0.00034)	Accuracy 0.865 (0.865)
+Test: [0/6]	Time 5.761 (5.761)	Loss 0.0003 (0.0003)	Accuracy 0.941 (0.941)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.880 | 0.962 | 0.936 | -1.000 | 0.880 | 0.907 | 0.974 | 0.953 | -1.000 | 0.907 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.880
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.962
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.936
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.880
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.907
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.953
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.907
+Epoch: [27][0/35]	Time 8.454s (8.454s)	Speed 7.6 samples/s	Data 6.736s (6.736s)	Loss 0.00031 (0.00031)	Accuracy 0.893 (0.893)
+Test: [0/6]	Time 5.494 (5.494)	Loss 0.0003 (0.0003)	Accuracy 0.950 (0.950)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.884 | 0.961 | 0.936 | -1.000 | 0.884 | 0.912 | 0.974 | 0.953 | -1.000 | 0.912 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.884
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.961
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.936
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.884
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.912
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.953
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.912
+Epoch: [28][0/35]	Time 13.590s (13.590s)	Speed 4.7 samples/s	Data 11.886s (11.886s)	Loss 0.00034 (0.00034)	Accuracy 0.868 (0.868)
+Test: [0/6]	Time 5.564 (5.564)	Loss 0.0003 (0.0003)	Accuracy 0.937 (0.937)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.885 | 0.962 | 0.937 | -1.000 | 0.885 | 0.912 | 0.974 | 0.956 | -1.000 | 0.912 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.16s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.885
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.962
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.937
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.885
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.912
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.956
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.912
+Epoch: [29][0/35]	Time 14.026s (14.026s)	Speed 4.6 samples/s	Data 12.480s (12.480s)	Loss 0.00028 (0.00028)	Accuracy 0.912 (0.912)
+Test: [0/6]	Time 5.059 (5.059)	Loss 0.0003 (0.0003)	Accuracy 0.944 (0.944)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.884 | 0.962 | 0.937 | -1.000 | 0.884 | 0.912 | 0.977 | 0.956 | -1.000 | 0.912 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.884
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.962
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.937
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.884
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.912
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.977
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.956
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.912
+Epoch: [30][0/35]	Time 13.737s (13.737s)	Speed 4.7 samples/s	Data 12.133s (12.133s)	Loss 0.00036 (0.00036)	Accuracy 0.885 (0.885)
+Test: [0/6]	Time 5.393 (5.393)	Loss 0.0003 (0.0003)	Accuracy 0.926 (0.926)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.876 | 0.962 | 0.926 | -1.000 | 0.876 | 0.905 | 0.977 | 0.948 | -1.000 | 0.905 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.876
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.962
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.926
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.876
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.905
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.977
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.948
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.905
+Epoch: [31][0/35]	Time 13.166s (13.166s)	Speed 4.9 samples/s	Data 11.595s (11.595s)	Loss 0.00032 (0.00032)	Accuracy 0.879 (0.879)
+Test: [0/6]	Time 5.756 (5.756)	Loss 0.0003 (0.0003)	Accuracy 0.947 (0.947)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.884 | 0.958 | 0.935 | -1.000 | 0.884 | 0.911 | 0.974 | 0.953 | -1.000 | 0.911 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.884
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.958
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.935
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.884
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.911
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.953
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.911
+Epoch: [32][0/35]	Time 9.151s (9.151s)	Speed 7.0 samples/s	Data 5.504s (5.504s)	Loss 0.00031 (0.00031)	Accuracy 0.900 (0.900)
+Test: [0/6]	Time 5.575 (5.575)	Loss 0.0003 (0.0003)	Accuracy 0.943 (0.943)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.887 | 0.961 | 0.938 | -1.000 | 0.887 | 0.914 | 0.974 | 0.953 | -1.000 | 0.914 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.887
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.961
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.938
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.887
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.914
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.953
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.914
+Epoch: [33][0/35]	Time 7.309s (7.309s)	Speed 8.8 samples/s	Data 5.273s (5.273s)	Loss 0.00029 (0.00029)	Accuracy 0.905 (0.905)
+Test: [0/6]	Time 5.123 (5.123)	Loss 0.0003 (0.0003)	Accuracy 0.947 (0.947)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.883 | 0.960 | 0.937 | -1.000 | 0.883 | 0.908 | 0.974 | 0.950 | -1.000 | 0.908 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.16s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.883
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.960
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.937
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.883
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.908
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.950
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.908
+Epoch: [34][0/35]	Time 13.522s (13.522s)	Speed 4.7 samples/s	Data 11.962s (11.962s)	Loss 0.00039 (0.00039)	Accuracy 0.836 (0.836)
+Test: [0/6]	Time 5.389 (5.389)	Loss 0.0003 (0.0003)	Accuracy 0.948 (0.948)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.884 | 0.960 | 0.927 | -1.000 | 0.884 | 0.909 | 0.977 | 0.945 | -1.000 | 0.909 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.884
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.960
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.927
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.884
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.909
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.977
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.945
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.909
+Epoch: [35][0/35]	Time 12.032s (12.032s)	Speed 5.3 samples/s	Data 10.037s (10.037s)	Loss 0.00028 (0.00028)	Accuracy 0.913 (0.913)
+Test: [0/6]	Time 5.625 (5.625)	Loss 0.0003 (0.0003)	Accuracy 0.942 (0.942)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.886 | 0.961 | 0.938 | -1.000 | 0.886 | 0.912 | 0.974 | 0.959 | -1.000 | 0.912 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.886
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.961
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.938
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.886
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.912
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.959
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.912
+Epoch: [36][0/35]	Time 6.970s (6.970s)	Speed 9.2 samples/s	Data 4.963s (4.963s)	Loss 0.00030 (0.00030)	Accuracy 0.884 (0.884)
+Test: [0/6]	Time 5.818 (5.818)	Loss 0.0003 (0.0003)	Accuracy 0.943 (0.943)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.882 | 0.961 | 0.929 | -1.000 | 0.882 | 0.908 | 0.977 | 0.948 | -1.000 | 0.908 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.882
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.961
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.929
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.882
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.908
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.977
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.948
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.908
+Epoch: [37][0/35]	Time 13.916s (13.916s)	Speed 4.6 samples/s	Data 12.358s (12.358s)	Loss 0.00026 (0.00026)	Accuracy 0.920 (0.920)
+Test: [0/6]	Time 5.858 (5.858)	Loss 0.0003 (0.0003)	Accuracy 0.940 (0.940)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.883 | 0.962 | 0.939 | -1.000 | 0.883 | 0.909 | 0.980 | 0.959 | -1.000 | 0.909 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.883
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.962
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.939
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.883
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.909
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.980
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.959
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.909
+Epoch: [38][0/35]	Time 13.368s (13.368s)	Speed 4.8 samples/s	Data 11.681s (11.681s)	Loss 0.00030 (0.00030)	Accuracy 0.881 (0.881)
+Test: [0/6]	Time 5.664 (5.664)	Loss 0.0003 (0.0003)	Accuracy 0.946 (0.946)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.881 | 0.960 | 0.934 | -1.000 | 0.881 | 0.908 | 0.974 | 0.953 | -1.000 | 0.908 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.16s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.881
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.960
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.934
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.881
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.908
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.953
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.908
+Epoch: [39][0/35]	Time 13.183s (13.183s)	Speed 4.9 samples/s	Data 11.619s (11.619s)	Loss 0.00031 (0.00031)	Accuracy 0.900 (0.900)
+Test: [0/6]	Time 5.415 (5.415)	Loss 0.0003 (0.0003)	Accuracy 0.942 (0.942)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.887 | 0.961 | 0.938 | -1.000 | 0.887 | 0.913 | 0.974 | 0.959 | -1.000 | 0.913 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.887
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.961
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.938
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.887
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.913
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.959
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.913
+Epoch: [40][0/35]	Time 12.052s (12.052s)	Speed 5.3 samples/s	Data 9.789s (9.789s)	Loss 0.00030 (0.00030)	Accuracy 0.889 (0.889)
+Test: [0/6]	Time 5.586 (5.586)	Loss 0.0003 (0.0003)	Accuracy 0.932 (0.932)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.881 | 0.961 | 0.929 | -1.000 | 0.881 | 0.905 | 0.974 | 0.942 | -1.000 | 0.905 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.881
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.961
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.929
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.881
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.905
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.942
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.905
+Epoch: [41][0/35]	Time 13.159s (13.159s)	Speed 4.9 samples/s	Data 11.391s (11.391s)	Loss 0.00028 (0.00028)	Accuracy 0.887 (0.887)
+Test: [0/6]	Time 5.719 (5.719)	Loss 0.0003 (0.0003)	Accuracy 0.942 (0.942)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.883 | 0.960 | 0.925 | -1.000 | 0.883 | 0.911 | 0.977 | 0.948 | -1.000 | 0.911 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.883
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.960
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.925
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.883
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.911
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.977
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.948
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.911
+Epoch: [42][0/35]	Time 13.467s (13.467s)	Speed 4.8 samples/s	Data 11.886s (11.886s)	Loss 0.00027 (0.00027)	Accuracy 0.906 (0.906)
+Test: [0/6]	Time 5.276 (5.276)	Loss 0.0003 (0.0003)	Accuracy 0.937 (0.937)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.888 | 0.962 | 0.940 | -1.000 | 0.888 | 0.912 | 0.974 | 0.953 | -1.000 | 0.912 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.888
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.962
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.940
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.888
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.912
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.953
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.912
+Epoch: [43][0/35]	Time 13.599s (13.599s)	Speed 4.7 samples/s	Data 12.047s (12.047s)	Loss 0.00033 (0.00033)	Accuracy 0.870 (0.870)
+Test: [0/6]	Time 5.734 (5.734)	Loss 0.0003 (0.0003)	Accuracy 0.950 (0.950)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.884 | 0.960 | 0.937 | -1.000 | 0.884 | 0.912 | 0.974 | 0.959 | -1.000 | 0.912 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.17s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.884
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.960
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.937
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.884
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.912
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.959
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.912
+Epoch: [44][0/35]	Time 13.932s (13.932s)	Speed 4.6 samples/s	Data 12.380s (12.380s)	Loss 0.00025 (0.00025)	Accuracy 0.938 (0.938)
+Test: [0/6]	Time 5.704 (5.704)	Loss 0.0003 (0.0003)	Accuracy 0.940 (0.940)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.879 | 0.958 | 0.933 | -1.000 | 0.879 | 0.908 | 0.974 | 0.950 | -1.000 | 0.908 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.879
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.958
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.933
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.879
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.908
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.950
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.908
+Epoch: [45][0/35]	Time 12.671s (12.671s)	Speed 5.1 samples/s	Data 11.035s (11.035s)	Loss 0.00024 (0.00024)	Accuracy 0.931 (0.931)
+Test: [0/6]	Time 5.747 (5.747)	Loss 0.0003 (0.0003)	Accuracy 0.944 (0.944)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.885 | 0.962 | 0.939 | -1.000 | 0.885 | 0.910 | 0.977 | 0.953 | -1.000 | 0.910 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.885
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.962
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.939
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.885
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.910
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.977
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.953
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.910
+Epoch: [46][0/35]	Time 13.959s (13.959s)	Speed 4.6 samples/s	Data 12.408s (12.408s)	Loss 0.00023 (0.00023)	Accuracy 0.938 (0.938)
+Test: [0/6]	Time 5.354 (5.354)	Loss 0.0003 (0.0003)	Accuracy 0.937 (0.937)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.881 | 0.963 | 0.931 | -1.000 | 0.881 | 0.907 | 0.977 | 0.948 | -1.000 | 0.907 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.881
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.963
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.931
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.881
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.907
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.977
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.948
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.907
+Epoch: [47][0/35]	Time 12.300s (12.300s)	Speed 5.2 samples/s	Data 10.035s (10.035s)	Loss 0.00029 (0.00029)	Accuracy 0.899 (0.899)
+Test: [0/6]	Time 5.563 (5.563)	Loss 0.0003 (0.0003)	Accuracy 0.941 (0.941)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.879 | 0.961 | 0.935 | -1.000 | 0.879 | 0.907 | 0.974 | 0.950 | -1.000 | 0.907 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.879
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.961
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.935
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.879
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.907
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.950
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.907
+Epoch: [48][0/35]	Time 14.175s (14.175s)	Speed 4.5 samples/s	Data 12.621s (12.621s)	Loss 0.00031 (0.00031)	Accuracy 0.891 (0.891)
+Test: [0/6]	Time 5.479 (5.479)	Loss 0.0003 (0.0003)	Accuracy 0.940 (0.940)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.883 | 0.962 | 0.937 | -1.000 | 0.883 | 0.909 | 0.974 | 0.950 | -1.000 | 0.909 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.16s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.883
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.962
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.937
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.883
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.909
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.950
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.909
+Epoch: [49][0/35]	Time 13.711s (13.711s)	Speed 4.7 samples/s	Data 12.149s (12.149s)	Loss 0.00027 (0.00027)	Accuracy 0.917 (0.917)
+Test: [0/6]	Time 5.841 (5.841)	Loss 0.0003 (0.0003)	Accuracy 0.936 (0.936)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.887 | 0.962 | 0.938 | -1.000 | 0.887 | 0.913 | 0.977 | 0.953 | -1.000 | 0.913 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.887
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.962
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.938
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.887
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.913
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.977
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.953
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.913
+Epoch: [50][0/35]	Time 11.545s (11.545s)	Speed 5.5 samples/s	Data 9.508s (9.508s)	Loss 0.00027 (0.00027)	Accuracy 0.924 (0.924)
+Test: [0/6]	Time 5.820 (5.820)	Loss 0.0003 (0.0003)	Accuracy 0.940 (0.940)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.883 | 0.959 | 0.934 | -1.000 | 0.883 | 0.910 | 0.974 | 0.956 | -1.000 | 0.910 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.883
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.959
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.934
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.883
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.910
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.956
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.910
+Epoch: [51][0/35]	Time 13.711s (13.711s)	Speed 4.7 samples/s	Data 12.145s (12.145s)	Loss 0.00024 (0.00024)	Accuracy 0.917 (0.917)
+Test: [0/6]	Time 5.783 (5.783)	Loss 0.0003 (0.0003)	Accuracy 0.942 (0.942)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.888 | 0.963 | 0.940 | -1.000 | 0.888 | 0.912 | 0.974 | 0.953 | -1.000 | 0.912 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.888
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.963
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.940
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.888
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.912
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.953
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.912
+Epoch: [52][0/35]	Time 9.073s (9.073s)	Speed 7.1 samples/s	Data 5.971s (5.971s)	Loss 0.00025 (0.00025)	Accuracy 0.912 (0.912)
+Test: [0/6]	Time 5.765 (5.765)	Loss 0.0003 (0.0003)	Accuracy 0.951 (0.951)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.884 | 0.960 | 0.945 | -1.000 | 0.884 | 0.915 | 0.974 | 0.962 | -1.000 | 0.915 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.884
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.960
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.945
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.884
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.915
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.962
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.915
+Epoch: [53][0/35]	Time 13.643s (13.643s)	Speed 4.7 samples/s	Data 12.092s (12.092s)	Loss 0.00023 (0.00023)	Accuracy 0.925 (0.925)
+Test: [0/6]	Time 5.820 (5.820)	Loss 0.0003 (0.0003)	Accuracy 0.935 (0.935)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.885 | 0.960 | 0.935 | -1.000 | 0.885 | 0.912 | 0.974 | 0.953 | -1.000 | 0.912 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.06s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.885
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.960
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.935
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.885
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.912
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.953
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.912
+Epoch: [54][0/35]	Time 14.304s (14.304s)	Speed 4.5 samples/s	Data 12.746s (12.746s)	Loss 0.00029 (0.00029)	Accuracy 0.886 (0.886)
+Test: [0/6]	Time 5.603 (5.603)	Loss 0.0003 (0.0003)	Accuracy 0.937 (0.937)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.888 | 0.961 | 0.928 | -1.000 | 0.888 | 0.912 | 0.977 | 0.948 | -1.000 | 0.912 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.888
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.961
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.928
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.888
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.912
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.977
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.948
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.912
+Epoch: [55][0/35]	Time 12.743s (12.743s)	Speed 5.0 samples/s	Data 11.113s (11.113s)	Loss 0.00021 (0.00021)	Accuracy 0.942 (0.942)
+Test: [0/6]	Time 5.782 (5.782)	Loss 0.0003 (0.0003)	Accuracy 0.931 (0.931)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.882 | 0.960 | 0.937 | -1.000 | 0.882 | 0.909 | 0.974 | 0.953 | -1.000 | 0.909 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.882
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.960
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.937
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.882
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.909
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.953
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.909
+Epoch: [56][0/35]	Time 13.165s (13.165s)	Speed 4.9 samples/s	Data 11.519s (11.519s)	Loss 0.00028 (0.00028)	Accuracy 0.899 (0.899)
+Test: [0/6]	Time 5.453 (5.453)	Loss 0.0003 (0.0003)	Accuracy 0.940 (0.940)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.885 | 0.960 | 0.937 | -1.000 | 0.885 | 0.912 | 0.974 | 0.953 | -1.000 | 0.912 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.885
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.960
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.937
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.885
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.912
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.953
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.912
+Epoch: [57][0/35]	Time 13.216s (13.216s)	Speed 4.8 samples/s	Data 11.625s (11.625s)	Loss 0.00022 (0.00022)	Accuracy 0.930 (0.930)
+Test: [0/6]	Time 5.787 (5.787)	Loss 0.0003 (0.0003)	Accuracy 0.947 (0.947)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.885 | 0.962 | 0.929 | -1.000 | 0.885 | 0.910 | 0.974 | 0.945 | -1.000 | 0.910 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.885
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.962
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.929
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.885
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.910
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.945
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.910
+Epoch: [58][0/35]	Time 7.612s (7.612s)	Speed 8.4 samples/s	Data 5.680s (5.680s)	Loss 0.00028 (0.00028)	Accuracy 0.902 (0.902)
+Test: [0/6]	Time 5.744 (5.744)	Loss 0.0003 (0.0003)	Accuracy 0.942 (0.942)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.880 | 0.959 | 0.931 | -1.000 | 0.880 | 0.911 | 0.977 | 0.950 | -1.000 | 0.911 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.880
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.959
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.931
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.880
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.911
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.977
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.950
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.911
+Epoch: [59][0/35]	Time 13.053s (13.053s)	Speed 4.9 samples/s	Data 11.316s (11.316s)	Loss 0.00033 (0.00033)	Accuracy 0.892 (0.892)
+Test: [0/6]	Time 5.772 (5.772)	Loss 0.0003 (0.0003)	Accuracy 0.937 (0.937)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.884 | 0.960 | 0.936 | -1.000 | 0.884 | 0.912 | 0.974 | 0.956 | -1.000 | 0.912 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.884
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.960
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.936
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.884
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.912
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.956
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.912
+Epoch: [60][0/35]	Time 13.451s (13.451s)	Speed 4.8 samples/s	Data 11.894s (11.894s)	Loss 0.00023 (0.00023)	Accuracy 0.932 (0.932)
+Test: [0/6]	Time 5.936 (5.936)	Loss 0.0003 (0.0003)	Accuracy 0.941 (0.941)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.885 | 0.962 | 0.940 | -1.000 | 0.885 | 0.911 | 0.974 | 0.956 | -1.000 | 0.911 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.885
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.962
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.940
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.885
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.911
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.956
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.911
+Epoch: [61][0/35]	Time 12.089s (12.089s)	Speed 5.3 samples/s	Data 10.040s (10.040s)	Loss 0.00040 (0.00040)	Accuracy 0.868 (0.868)
+Test: [0/6]	Time 5.727 (5.727)	Loss 0.0003 (0.0003)	Accuracy 0.934 (0.934)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.876 | 0.961 | 0.928 | -1.000 | 0.876 | 0.903 | 0.974 | 0.948 | -1.000 | 0.903 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.876
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.961
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.928
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.876
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.903
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.948
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.903
+Epoch: [62][0/35]	Time 13.708s (13.708s)	Speed 4.7 samples/s	Data 12.074s (12.074s)	Loss 0.00025 (0.00025)	Accuracy 0.920 (0.920)
+Test: [0/6]	Time 5.254 (5.254)	Loss 0.0003 (0.0003)	Accuracy 0.940 (0.940)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.886 | 0.960 | 0.928 | -1.000 | 0.886 | 0.913 | 0.974 | 0.948 | -1.000 | 0.913 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.886
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.960
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.928
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.886
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.913
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.948
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.913
+Epoch: [63][0/35]	Time 13.528s (13.528s)	Speed 4.7 samples/s	Data 11.939s (11.939s)	Loss 0.00027 (0.00027)	Accuracy 0.903 (0.903)
+Test: [0/6]	Time 5.913 (5.913)	Loss 0.0003 (0.0003)	Accuracy 0.941 (0.941)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.887 | 0.961 | 0.939 | -1.000 | 0.887 | 0.913 | 0.974 | 0.956 | -1.000 | 0.913 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.887
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.961
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.939
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.887
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.913
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.956
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.913
+Epoch: [64][0/35]	Time 8.132s (8.132s)	Speed 7.9 samples/s	Data 5.998s (5.998s)	Loss 0.00027 (0.00027)	Accuracy 0.914 (0.914)
+Test: [0/6]	Time 5.746 (5.746)	Loss 0.0003 (0.0003)	Accuracy 0.942 (0.942)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.884 | 0.962 | 0.938 | -1.000 | 0.884 | 0.911 | 0.977 | 0.950 | -1.000 | 0.911 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.884
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.962
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.938
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.884
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.911
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.977
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.950
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.911
+Epoch: [65][0/35]	Time 12.842s (12.842s)	Speed 5.0 samples/s	Data 11.224s (11.224s)	Loss 0.00020 (0.00020)	Accuracy 0.943 (0.943)
+Test: [0/6]	Time 5.738 (5.738)	Loss 0.0003 (0.0003)	Accuracy 0.934 (0.934)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.883 | 0.961 | 0.928 | -1.000 | 0.883 | 0.910 | 0.974 | 0.948 | -1.000 | 0.910 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.883
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.961
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.928
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.883
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.910
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.948
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.910
+Epoch: [66][0/35]	Time 12.721s (12.721s)	Speed 5.0 samples/s	Data 10.099s (10.099s)	Loss 0.00027 (0.00027)	Accuracy 0.890 (0.890)
+Test: [0/6]	Time 5.585 (5.585)	Loss 0.0003 (0.0003)	Accuracy 0.932 (0.932)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.882 | 0.962 | 0.938 | -1.000 | 0.882 | 0.909 | 0.974 | 0.950 | -1.000 | 0.909 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.882
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.962
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.938
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.882
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.909
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.950
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.909
+Epoch: [67][0/35]	Time 7.921s (7.921s)	Speed 8.1 samples/s	Data 5.969s (5.969s)	Loss 0.00021 (0.00021)	Accuracy 0.943 (0.943)
+Test: [0/6]	Time 5.692 (5.692)	Loss 0.0003 (0.0003)	Accuracy 0.938 (0.938)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.890 | 0.961 | 0.938 | -1.000 | 0.890 | 0.914 | 0.974 | 0.950 | -1.000 | 0.914 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.890
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.961
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.938
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.890
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.914
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.950
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.914
+Epoch: [68][0/35]	Time 13.442s (13.442s)	Speed 4.8 samples/s	Data 11.822s (11.822s)	Loss 0.00023 (0.00023)	Accuracy 0.930 (0.930)
+Test: [0/6]	Time 5.670 (5.670)	Loss 0.0003 (0.0003)	Accuracy 0.941 (0.941)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.889 | 0.962 | 0.928 | -1.000 | 0.889 | 0.914 | 0.974 | 0.948 | -1.000 | 0.914 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.889
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.962
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.928
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.889
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.914
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.948
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.914
+Epoch: [69][0/35]	Time 13.382s (13.382s)	Speed 4.8 samples/s	Data 11.799s (11.799s)	Loss 0.00027 (0.00027)	Accuracy 0.914 (0.914)
+Test: [0/6]	Time 5.678 (5.678)	Loss 0.0003 (0.0003)	Accuracy 0.946 (0.946)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.884 | 0.962 | 0.939 | -1.000 | 0.884 | 0.912 | 0.977 | 0.956 | -1.000 | 0.912 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.884
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.962
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.939
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.884
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.912
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.977
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.956
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.912
+Epoch: [70][0/35]	Time 13.490s (13.490s)	Speed 4.7 samples/s	Data 11.931s (11.931s)	Loss 0.00022 (0.00022)	Accuracy 0.939 (0.939)
+Test: [0/6]	Time 5.641 (5.641)	Loss 0.0003 (0.0003)	Accuracy 0.940 (0.940)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.884 | 0.961 | 0.936 | -1.000 | 0.884 | 0.913 | 0.977 | 0.959 | -1.000 | 0.913 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.884
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.961
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.936
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.884
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.913
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.977
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.959
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.913
+Epoch: [71][0/35]	Time 6.673s (6.673s)	Speed 9.6 samples/s	Data 5.012s (5.012s)	Loss 0.00029 (0.00029)	Accuracy 0.896 (0.896)
+Test: [0/6]	Time 5.599 (5.599)	Loss 0.0003 (0.0003)	Accuracy 0.936 (0.936)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.887 | 0.961 | 0.946 | -1.000 | 0.887 | 0.913 | 0.974 | 0.962 | -1.000 | 0.913 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.887
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.961
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.946
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.887
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.913
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.962
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.913
+Epoch: [72][0/35]	Time 9.397s (9.397s)	Speed 6.8 samples/s	Data 5.210s (5.210s)	Loss 0.00023 (0.00023)	Accuracy 0.915 (0.915)
+Test: [0/6]	Time 5.647 (5.647)	Loss 0.0003 (0.0003)	Accuracy 0.933 (0.933)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.887 | 0.963 | 0.940 | -1.000 | 0.887 | 0.910 | 0.974 | 0.950 | -1.000 | 0.910 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.887
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.963
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.940
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.887
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.910
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.950
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.910
+Epoch: [73][0/35]	Time 13.496s (13.496s)	Speed 4.7 samples/s	Data 11.948s (11.948s)	Loss 0.00023 (0.00023)	Accuracy 0.922 (0.922)
+Test: [0/6]	Time 5.355 (5.355)	Loss 0.0003 (0.0003)	Accuracy 0.931 (0.931)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.879 | 0.962 | 0.928 | -1.000 | 0.879 | 0.907 | 0.977 | 0.945 | -1.000 | 0.907 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.879
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.962
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.928
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.879
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.907
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.977
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.945
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.907
+Epoch: [74][0/35]	Time 13.786s (13.786s)	Speed 4.6 samples/s	Data 12.240s (12.240s)	Loss 0.00020 (0.00020)	Accuracy 0.942 (0.942)
+Test: [0/6]	Time 5.722 (5.722)	Loss 0.0003 (0.0003)	Accuracy 0.946 (0.946)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.882 | 0.962 | 0.937 | -1.000 | 0.882 | 0.909 | 0.977 | 0.956 | -1.000 | 0.909 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.882
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.962
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.937
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.882
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.909
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.977
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.956
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.909
+Epoch: [75][0/35]	Time 13.511s (13.511s)	Speed 4.7 samples/s	Data 11.954s (11.954s)	Loss 0.00025 (0.00025)	Accuracy 0.926 (0.926)
+Test: [0/6]	Time 5.509 (5.509)	Loss 0.0003 (0.0003)	Accuracy 0.931 (0.931)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.880 | 0.963 | 0.940 | -1.000 | 0.880 | 0.906 | 0.977 | 0.950 | -1.000 | 0.906 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.880
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.963
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.940
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.880
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.906
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.977
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.950
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.906
+Epoch: [76][0/35]	Time 14.004s (14.004s)	Speed 4.6 samples/s	Data 12.458s (12.458s)	Loss 0.00021 (0.00021)	Accuracy 0.933 (0.933)
+Test: [0/6]	Time 5.779 (5.779)	Loss 0.0003 (0.0003)	Accuracy 0.941 (0.941)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.885 | 0.963 | 0.939 | -1.000 | 0.885 | 0.911 | 0.980 | 0.953 | -1.000 | 0.911 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.885
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.963
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.939
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.885
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.911
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.980
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.953
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.911
+Epoch: [77][0/35]	Time 13.840s (13.840s)	Speed 4.6 samples/s	Data 12.279s (12.279s)	Loss 0.00020 (0.00020)	Accuracy 0.944 (0.944)
+Test: [0/6]	Time 5.545 (5.545)	Loss 0.0003 (0.0003)	Accuracy 0.936 (0.936)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.883 | 0.961 | 0.934 | -1.000 | 0.883 | 0.910 | 0.974 | 0.950 | -1.000 | 0.910 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.883
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.961
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.934
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.883
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.910
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.950
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.910
+Epoch: [78][0/35]	Time 14.889s (14.889s)	Speed 4.3 samples/s	Data 13.342s (13.342s)	Loss 0.00021 (0.00021)	Accuracy 0.954 (0.954)
+Test: [0/6]	Time 5.662 (5.662)	Loss 0.0003 (0.0003)	Accuracy 0.934 (0.934)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.881 | 0.963 | 0.929 | -1.000 | 0.881 | 0.908 | 0.974 | 0.945 | -1.000 | 0.908 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.881
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.963
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.929
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.881
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.908
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.945
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.908
+Epoch: [79][0/35]	Time 12.500s (12.500s)	Speed 5.1 samples/s	Data 10.343s (10.343s)	Loss 0.00026 (0.00026)	Accuracy 0.919 (0.919)
+Test: [0/6]	Time 5.821 (5.821)	Loss 0.0003 (0.0003)	Accuracy 0.944 (0.944)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.886 | 0.963 | 0.939 | -1.000 | 0.886 | 0.910 | 0.974 | 0.950 | -1.000 | 0.910 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.16s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.886
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.963
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.939
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.886
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.910
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.950
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.910
+Epoch: [80][0/35]	Time 12.249s (12.249s)	Speed 5.2 samples/s	Data 9.949s (9.949s)	Loss 0.00027 (0.00027)	Accuracy 0.926 (0.926)
+Test: [0/6]	Time 5.780 (5.780)	Loss 0.0003 (0.0003)	Accuracy 0.943 (0.943)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.886 | 0.961 | 0.927 | -1.000 | 0.886 | 0.911 | 0.974 | 0.948 | -1.000 | 0.911 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.886
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.961
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.927
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.886
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.911
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.948
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.911
+Epoch: [81][0/35]	Time 12.981s (12.981s)	Speed 4.9 samples/s	Data 11.288s (11.288s)	Loss 0.00023 (0.00023)	Accuracy 0.944 (0.944)
+Test: [0/6]	Time 5.771 (5.771)	Loss 0.0003 (0.0003)	Accuracy 0.942 (0.942)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.880 | 0.962 | 0.926 | -1.000 | 0.880 | 0.910 | 0.977 | 0.948 | -1.000 | 0.910 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.880
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.962
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.926
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.880
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.910
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.977
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.948
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.910
+Epoch: [82][0/35]	Time 9.561s (9.561s)	Speed 6.7 samples/s	Data 6.543s (6.543s)	Loss 0.00022 (0.00022)	Accuracy 0.931 (0.931)
+Test: [0/6]	Time 5.543 (5.543)	Loss 0.0003 (0.0003)	Accuracy 0.937 (0.937)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.880 | 0.961 | 0.925 | -1.000 | 0.880 | 0.908 | 0.974 | 0.948 | -1.000 | 0.908 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.880
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.961
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.925
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.880
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.908
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.974
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.948
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.908
+Epoch: [83][0/35]	Time 8.865s (8.865s)	Speed 7.2 samples/s	Data 6.975s (6.975s)	Loss 0.00023 (0.00023)	Accuracy 0.951 (0.951)
+Test: [0/6]	Time 5.628 (5.628)	Loss 0.0003 (0.0003)	Accuracy 0.934 (0.934)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.879 | 0.959 | 0.925 | -1.000 | 0.879 | 0.909 | 0.977 | 0.945 | -1.000 | 0.909 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.879
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.959
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.925
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.879
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.909
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.977
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.945
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.909
+Epoch: [84][0/35]	Time 12.514s (12.514s)	Speed 5.1 samples/s	Data 10.797s (10.797s)	Loss 0.00029 (0.00029)	Accuracy 0.892 (0.892)
+Test: [0/6]	Time 5.807 (5.807)	Loss 0.0003 (0.0003)	Accuracy 0.931 (0.931)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.883 | 0.962 | 0.938 | -1.000 | 0.883 | 0.910 | 0.980 | 0.953 | -1.000 | 0.910 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.16s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.883
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.962
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.938
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.883
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.910
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.980
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.953
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.910
+Epoch: [85][0/35]	Time 13.502s (13.502s)	Speed 4.7 samples/s	Data 11.897s (11.897s)	Loss 0.00020 (0.00020)	Accuracy 0.936 (0.936)
+Test: [0/6]	Time 5.649 (5.649)	Loss 0.0003 (0.0003)	Accuracy 0.935 (0.935)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.881 | 0.962 | 0.928 | -1.000 | 0.881 | 0.908 | 0.980 | 0.945 | -1.000 | 0.908 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.881
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.962
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.928
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.881
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.908
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.980
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.945
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.908
+Epoch: [86][0/35]	Time 14.344s (14.344s)	Speed 4.5 samples/s	Data 12.805s (12.805s)	Loss 0.00022 (0.00022)	Accuracy 0.925 (0.925)
+Test: [0/6]	Time 5.755 (5.755)	Loss 0.0003 (0.0003)	Accuracy 0.939 (0.939)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.887 | 0.961 | 0.938 | -1.000 | 0.887 | 0.911 | 0.977 | 0.950 | -1.000 | 0.911 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.887
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.961
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.938
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.887
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.911
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.977
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.950
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.911
+Epoch: [87][0/35]	Time 13.234s (13.234s)	Speed 4.8 samples/s	Data 11.609s (11.609s)	Loss 0.00024 (0.00024)	Accuracy 0.936 (0.936)
+Test: [0/6]	Time 5.641 (5.641)	Loss 0.0003 (0.0003)	Accuracy 0.947 (0.947)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.887 | 0.962 | 0.939 | -1.000 | 0.887 | 0.913 | 0.977 | 0.956 | -1.000 | 0.913 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.887
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.962
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.939
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.887
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.913
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.977
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.956
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.913
+Epoch: [88][0/35]	Time 13.082s (13.082s)	Speed 4.9 samples/s	Data 11.451s (11.451s)	Loss 0.00021 (0.00021)	Accuracy 0.936 (0.936)
+Test: [0/6]	Time 5.378 (5.378)	Loss 0.0003 (0.0003)	Accuracy 0.937 (0.937)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.887 | 0.962 | 0.938 | -1.000 | 0.887 | 0.913 | 0.980 | 0.953 | -1.000 | 0.913 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.887
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.962
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.938
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.887
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.913
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.980
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.953
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.913
+Epoch: [89][0/35]	Time 7.640s (7.640s)	Speed 8.4 samples/s	Data 5.456s (5.456s)	Loss 0.00029 (0.00029)	Accuracy 0.883 (0.883)
+Test: [0/6]	Time 5.654 (5.654)	Loss 0.0003 (0.0003)	Accuracy 0.945 (0.945)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.889 | 0.963 | 0.939 | -1.000 | 0.889 | 0.916 | 0.977 | 0.956 | -1.000 | 0.916 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.16s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.889
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.963
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.939
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.889
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.916
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.977
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.956
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.916
+Epoch: [90][0/35]	Time 14.002s (14.002s)	Speed 4.6 samples/s	Data 12.406s (12.406s)	Loss 0.00022 (0.00022)	Accuracy 0.933 (0.933)
+Test: [0/6]	Time 5.551 (5.551)	Loss 0.0003 (0.0003)	Accuracy 0.941 (0.941)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.891 | 0.963 | 0.939 | -1.000 | 0.891 | 0.915 | 0.980 | 0.950 | -1.000 | 0.915 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.891
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.963
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.939
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.891
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.915
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.980
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.950
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.915
+Epoch: [91][0/35]	Time 7.871s (7.871s)	Speed 8.1 samples/s	Data 5.947s (5.947s)	Loss 0.00019 (0.00019)	Accuracy 0.955 (0.955)
+Test: [0/6]	Time 5.259 (5.259)	Loss 0.0003 (0.0003)	Accuracy 0.942 (0.942)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.889 | 0.963 | 0.939 | -1.000 | 0.889 | 0.915 | 0.977 | 0.953 | -1.000 | 0.915 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.889
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.963
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.939
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.889
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.915
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.977
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.953
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.915
+Epoch: [92][0/35]	Time 13.882s (13.882s)	Speed 4.6 samples/s	Data 12.332s (12.332s)	Loss 0.00023 (0.00023)	Accuracy 0.931 (0.931)
+Test: [0/6]	Time 5.780 (5.780)	Loss 0.0003 (0.0003)	Accuracy 0.944 (0.944)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.891 | 0.963 | 0.938 | -1.000 | 0.891 | 0.916 | 0.977 | 0.950 | -1.000 | 0.916 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.891
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.963
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.938
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.891
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.916
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.977
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.950
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.916
+Epoch: [93][0/35]	Time 8.691s (8.691s)	Speed 7.4 samples/s	Data 5.411s (5.411s)	Loss 0.00020 (0.00020)	Accuracy 0.942 (0.942)
+Test: [0/6]	Time 5.497 (5.497)	Loss 0.0003 (0.0003)	Accuracy 0.946 (0.946)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.891 | 0.963 | 0.939 | -1.000 | 0.891 | 0.916 | 0.980 | 0.950 | -1.000 | 0.916 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.891
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.963
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.939
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.891
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.916
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.980
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.950
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.916
+Epoch: [94][0/35]	Time 12.596s (12.596s)	Speed 5.1 samples/s	Data 10.149s (10.149s)	Loss 0.00018 (0.00018)	Accuracy 0.965 (0.965)
+Test: [0/6]	Time 5.450 (5.450)	Loss 0.0003 (0.0003)	Accuracy 0.951 (0.951)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.890 | 0.963 | 0.930 | -1.000 | 0.890 | 0.916 | 0.980 | 0.948 | -1.000 | 0.916 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.890
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.963
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.930
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.890
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.916
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.980
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.948
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.916
+Epoch: [95][0/35]	Time 14.051s (14.051s)	Speed 4.6 samples/s	Data 12.503s (12.503s)	Loss 0.00023 (0.00023)	Accuracy 0.907 (0.907)
+Test: [0/6]	Time 5.661 (5.661)	Loss 0.0003 (0.0003)	Accuracy 0.952 (0.952)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.891 | 0.963 | 0.939 | -1.000 | 0.891 | 0.917 | 0.977 | 0.950 | -1.000 | 0.917 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.891
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.963
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.939
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.891
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.917
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.977
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.950
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.917
+Epoch: [96][0/35]	Time 13.935s (13.935s)	Speed 4.6 samples/s	Data 12.391s (12.391s)	Loss 0.00017 (0.00017)	Accuracy 0.956 (0.956)
+Test: [0/6]	Time 5.765 (5.765)	Loss 0.0003 (0.0003)	Accuracy 0.947 (0.947)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.889 | 0.962 | 0.929 | -1.000 | 0.889 | 0.915 | 0.980 | 0.948 | -1.000 | 0.915 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.889
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.962
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.929
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.889
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.915
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.980
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.948
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.915
+Epoch: [97][0/35]	Time 6.725s (6.725s)	Speed 9.5 samples/s	Data 4.725s (4.725s)	Loss 0.00020 (0.00020)	Accuracy 0.946 (0.946)
+Test: [0/6]	Time 5.636 (5.636)	Loss 0.0003 (0.0003)	Accuracy 0.951 (0.951)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.892 | 0.962 | 0.939 | -1.000 | 0.892 | 0.917 | 0.977 | 0.950 | -1.000 | 0.917 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.892
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.962
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.939
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.892
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.917
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.977
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.950
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.917
+Epoch: [98][0/35]	Time 11.175s (11.175s)	Speed 5.7 samples/s	Data 9.370s (9.370s)	Loss 0.00016 (0.00016)	Accuracy 0.951 (0.951)
+Test: [0/6]	Time 5.768 (5.768)	Loss 0.0003 (0.0003)	Accuracy 0.951 (0.951)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.893 | 0.962 | 0.939 | -1.000 | 0.893 | 0.917 | 0.977 | 0.953 | -1.000 | 0.917 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.02s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.893
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.962
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.939
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.893
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.917
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.977
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.953
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.917
+Epoch: [99][0/35]	Time 7.908s (7.908s)	Speed 8.1 samples/s	Data 5.299s (5.299s)	Loss 0.00020 (0.00020)	Accuracy 0.930 (0.930)
+Test: [0/6]	Time 5.362 (5.362)	Loss 0.0003 (0.0003)	Accuracy 0.950 (0.950)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.892 | 0.963 | 0.939 | -1.000 | 0.892 | 0.916 | 0.977 | 0.950 | -1.000 | 0.916 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.892
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.963
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.939
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.892
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.916
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.977
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.950
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.916
+Epoch: [100][0/35]	Time 12.532s (12.532s)	Speed 5.1 samples/s	Data 10.756s (10.756s)	Loss 0.00019 (0.00019)	Accuracy 0.945 (0.945)
+Test: [0/6]	Time 5.693 (5.693)	Loss 0.0003 (0.0003)	Accuracy 0.949 (0.949)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.891 | 0.963 | 0.939 | -1.000 | 0.891 | 0.917 | 0.977 | 0.956 | -1.000 | 0.917 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.891
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.963
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.939
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.891
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.917
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.977
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.956
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.917
+Epoch: [101][0/35]	Time 13.308s (13.308s)	Speed 4.8 samples/s	Data 11.662s (11.662s)	Loss 0.00015 (0.00015)	Accuracy 0.966 (0.966)
+Test: [0/6]	Time 5.796 (5.796)	Loss 0.0003 (0.0003)	Accuracy 0.950 (0.950)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.888 | 0.963 | 0.939 | -1.000 | 0.888 | 0.914 | 0.977 | 0.950 | -1.000 | 0.914 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.888
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.963
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.939
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.888
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.914
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.977
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.950
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.914
+Epoch: [102][0/35]	Time 14.047s (14.047s)	Speed 4.6 samples/s	Data 12.498s (12.498s)	Loss 0.00018 (0.00018)	Accuracy 0.948 (0.948)
+Test: [0/6]	Time 5.451 (5.451)	Loss 0.0003 (0.0003)	Accuracy 0.947 (0.947)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.892 | 0.963 | 0.939 | -1.000 | 0.892 | 0.917 | 0.977 | 0.950 | -1.000 | 0.917 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.892
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.963
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.939
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.892
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.917
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.977
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.950
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.917
+Epoch: [103][0/35]	Time 8.805s (8.805s)	Speed 7.3 samples/s	Data 6.950s (6.950s)	Loss 0.00022 (0.00022)	Accuracy 0.926 (0.926)
+Test: [0/6]	Time 5.251 (5.251)	Loss 0.0003 (0.0003)	Accuracy 0.950 (0.950)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.891 | 0.963 | 0.939 | -1.000 | 0.891 | 0.916 | 0.977 | 0.950 | -1.000 | 0.916 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.891
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.963
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.939
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.891
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.916
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.977
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.950
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.916
+Epoch: [104][0/35]	Time 13.531s (13.531s)	Speed 4.7 samples/s	Data 11.932s (11.932s)	Loss 0.00018 (0.00018)	Accuracy 0.949 (0.949)
+Test: [0/6]	Time 5.639 (5.639)	Loss 0.0003 (0.0003)	Accuracy 0.948 (0.948)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.892 | 0.963 | 0.939 | -1.000 | 0.892 | 0.918 | 0.977 | 0.953 | -1.000 | 0.918 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.892
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.963
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.939
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.892
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.918
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.977
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.953
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.918
+Epoch: [105][0/35]	Time 12.445s (12.445s)	Speed 5.1 samples/s	Data 10.384s (10.384s)	Loss 0.00016 (0.00016)	Accuracy 0.958 (0.958)
+Test: [0/6]	Time 5.565 (5.565)	Loss 0.0003 (0.0003)	Accuracy 0.947 (0.947)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.893 | 0.963 | 0.939 | -1.000 | 0.893 | 0.917 | 0.977 | 0.950 | -1.000 | 0.917 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.16s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.893
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.963
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.939
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.893
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.917
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.977
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.950
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.917
+Epoch: [106][0/35]	Time 12.963s (12.963s)	Speed 4.9 samples/s	Data 11.138s (11.138s)	Loss 0.00018 (0.00018)	Accuracy 0.954 (0.954)
+Test: [0/6]	Time 5.534 (5.534)	Loss 0.0003 (0.0003)	Accuracy 0.950 (0.950)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.893 | 0.963 | 0.939 | -1.000 | 0.893 | 0.917 | 0.977 | 0.950 | -1.000 | 0.917 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.02s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.893
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.963
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.939
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.893
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.917
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.977
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.950
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.917
+Epoch: [107][0/35]	Time 7.767s (7.767s)	Speed 8.2 samples/s	Data 5.931s (5.931s)	Loss 0.00018 (0.00018)	Accuracy 0.936 (0.936)
+Test: [0/6]	Time 5.610 (5.610)	Loss 0.0003 (0.0003)	Accuracy 0.950 (0.950)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.892 | 0.963 | 0.939 | -1.000 | 0.892 | 0.917 | 0.977 | 0.950 | -1.000 | 0.917 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.892
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.963
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.939
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.892
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.917
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.977
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.950
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.917
+Epoch: [108][0/35]	Time 13.371s (13.371s)	Speed 4.8 samples/s	Data 11.822s (11.822s)	Loss 0.00021 (0.00021)	Accuracy 0.942 (0.942)
+Test: [0/6]	Time 5.585 (5.585)	Loss 0.0003 (0.0003)	Accuracy 0.946 (0.946)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.891 | 0.963 | 0.939 | -1.000 | 0.891 | 0.916 | 0.977 | 0.950 | -1.000 | 0.916 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.12s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.891
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.963
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.939
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.891
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.916
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.977
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.950
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.916
+Epoch: [109][0/35]	Time 13.625s (13.625s)	Speed 4.7 samples/s	Data 12.070s (12.070s)	Loss 0.00018 (0.00018)	Accuracy 0.953 (0.953)
+Test: [0/6]	Time 5.787 (5.787)	Loss 0.0003 (0.0003)	Accuracy 0.945 (0.945)
+=> writing results json to output/atrw/pose_hrnet/w48_384x288_0717NANW/results/keypoints_val_results_0.json
+| Arch | AP | Ap .5 | AP .75 | AP (M) | AP (L) | AR | AR .5 | AR .75 | AR (M) | AR (L) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| pose_hrnet | 0.891 | 0.963 | 0.930 | -1.000 | 0.891 | 0.916 | 0.977 | 0.948 | -1.000 | 0.916 |
+=> saving checkpoint to output/atrw/pose_hrnet/w48_384x288_0717NANW
+=> saving final model state to output/atrw/pose_hrnet/w48_384x288_0717NANW/final_state.pth
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *keypoints*
+DONE (t=0.11s).
+Accumulating evaluation results...
+DONE (t=0.01s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.891
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.963
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.930
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.891
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 20 ] = 0.916
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets= 20 ] = 0.977
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets= 20 ] = 0.948
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets= 20 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets= 20 ] = 0.916
