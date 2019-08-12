@@ -46,7 +46,8 @@ The code is developed using python 3.6.6 on Ubuntu 16.04. NVIDIA GPUs are needed
    ├── models
    ├── output
    ├── tools 
-   ├── README.md
+   ├── train.sh
+   ├── test.sh
    └── requirements.txt
    ```
    
@@ -92,6 +93,7 @@ ${POSE_ROOT}
 You can directly download the json files from dir 'data/atrw/pose/annotations'.
 
 ## Training and Testing
+Please pay attention to modify the parameter of DATASET in cfg file for training or testing.
 #### Train on tiger dataset using pretrained model:
 
 ```
@@ -103,6 +105,13 @@ bash train.sh
 ```
 bash test.sh
 ```
+
+## Results
+![res1](deep-high-resolution-net.pytorch/figures/000000.jpg)
+![res2](deep-high-resolution-net.pytorch/figures/000033.jpg)
+![res3](deep-high-resolution-net.pytorch/figures/000028.jpg)
+![res4](deep-high-resolution-net.pytorch/figures/000005.jpg)
+
 
 ## Citation
 Thanks for MSRA's [wonderful work](https://github.com/leoxiaobin/deep-high-resolution-net.pytorch)
