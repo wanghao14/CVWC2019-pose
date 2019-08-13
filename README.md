@@ -4,7 +4,7 @@
 Using HRNet for [CVWC 2019 Tiger Pose Track Challenge](https://cvwc2019.github.io/challenge.html) based on https://github.com/leoxiaobin/deep-high-resolution-net.pytorch. For the keypoints difference between human and tiger, we made some modifications in the original [cocoapi](https://github.com/cocodataset/cocoapi).
 
 ## Environment
-The code is developed using python 3.6.6 on Ubuntu 16.04. NVIDIA GPUs are needed. The code is developed and tested using 1 Tesla V100 GPU cards. Other platforms or GPU cards are not fully tested, and you need pay attention to the modification of the parameters in cfg file, like LR, END_EPOCH, BATCH_SIZE_PER_GPU and etc.
+The code is developed using python 3.6.6 on Ubuntu 16.04. NVIDIA GPUs are needed. The code is developed and tested using 1 Tesla V100 GPU cards. Other platforms or GPU cards are not fully tested, and you need pay attention to the modification of the parameters in cfg file, like LR, END_EPOCH, BATCH_SIZE_PER_GPU and etc. You can refer to [the scheduling rules from Detectron](https://github.com/facebookresearch/Detectron/blob/master/configs/getting_started/tutorial_1gpu_e2e_faster_rcnn_R-50-FPN.yaml#L14-L30).
 
 ## Installation
 1. Install pytorch >= v1.0.0 following [official instruction](https://pytorch.org/).
